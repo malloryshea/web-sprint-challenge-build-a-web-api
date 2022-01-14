@@ -2,19 +2,24 @@ const express = require('express');
 
 const router = express.Router();
 
+const {errHandler} = require('../global-middleware');
+const {validateProjectId} = require('./projects-middleware');
+
 const Projects = require('./projects-model');
 
 
-router.get('/', (req,res) => {
-    res.json({
-        message: "get all -projects"
-    })
+router.get('/', async (req, res, next) => {
+    try {
+        const projects = await Projects.get()
+        res.json(projects)
+    }
+    catch (err) {
+        next(err)
+    }
 })
 
-router.get('/:id', (req,res) => {
-    res.json({
-        message: "get by id -projects"
-    })
+router.get('/:id', validateProjectId,  (req, res) => {
+    res.json(req.project)
 })
 
 router.get('/:id/actions', (req,res) => {

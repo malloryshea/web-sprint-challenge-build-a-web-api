@@ -40,5 +40,17 @@ router.delete('/:id', (req,res) => {
         message: "delete -projects"
     })
 })
+router.get('/test/test', (req,res, next) => {
+    next({})
+})
+
+router.use((err, req, res, next)=>{
+    res.status(err.status || 500).json({
+      errorMessage: ' Something went wrong!',
+      message: err.message,
+      stack: err.stack,
+    })
+  })
+
 
 module.exports = router; // Write your "projects" router here!

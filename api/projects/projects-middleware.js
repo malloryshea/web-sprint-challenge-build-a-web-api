@@ -8,7 +8,7 @@ async function validateProjectId(req, res, next) {
             next();
         }
         else {
-            res.status(404).json({message: 'this user does not exist'})
+            res.status(404).json({message: 'this project does not exist'})
         }
     }
     catch (err) {
